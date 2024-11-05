@@ -12,21 +12,21 @@ const Header = () => {
         </h1>
 
         <ul className="flex space-x-3">
-          <li className="text-lg">
+          <li className="text-lg hover:text-blue-400">
             <Link href="/">Home</Link>
           </li>
-          <li className="text-lg">
+          <li className="text-lg hover:text-blue-400">
             <Link href="/showTask">ShowTask</Link>
           </li>
-          <li className="text-lg">
-            <Link href="/addTasks">AddTasks</Link>
+          <li className="text-lg hover:text-blue-400">
+            <Link href="/add-task">AddTasks</Link>
           </li>
         </ul>
-        <ul className="text-lg flex space-x-2">
-          <li>
+        <ul className="text-lg flex space-x-2 ">
+          <li className="hover:text-blue-400">
             <Link href="/SignIn">Login</Link>
           </li>
-          <li>
+          <li className="hover:text-blue-400">
             <Link href="/SignUp">SignUp</Link>
           </li>
         </ul>
