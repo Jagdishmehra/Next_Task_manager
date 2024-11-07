@@ -30,7 +30,6 @@ export async function GET() {
   await dbconnect();
   try {
     const data = await taskModel.find();
-
     return NextResponse.json({
       message: "All tasks fetched sucessfully",
       data,

@@ -24,10 +24,10 @@ const Header = () => {
         </ul>
         <ul className="text-lg flex space-x-2 ">
           <li className="hover:text-blue-400">
-            <Link href="/SignIn">Login</Link>
+            <Link href="/loginForm">Login</Link>
           </li>
           <li className="hover:text-blue-400">
-            <Link href="/SignUp">SignUp</Link>
+            <Link href="/signupForm">SignUp</Link>
           </li>
         </ul>
       </div>
