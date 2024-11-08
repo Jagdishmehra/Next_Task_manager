@@ -1,11 +1,13 @@
 "use client";
-
 import { validateEmail } from "@/helper/validation";
 import { LoginUser } from "@/services/taskService";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-
+import loginSvg from "../../assets/login.svg";
+import Image from "next/image";
 const page = () => {
+  const router = useRouter();
   const [loginData, setloginData] = useState({
     email: "",
     password: "",
@@ -14,19 +16,23 @@ const page = () => {
     //console.log(loginData);
     const validemail = validateEmail(loginData.email);
     if (!validemail) {
-      toast.info("Invalid email-Id");
+      toast.error("Invalid email-Id", { position: "bottom-right" });
       return;
     }
     if (!loginData.email || !loginData.password) {
-      toast.info("Email or Password is required");
+      toast.info("Email or Password is required", { position: "bottom-right" });
       return;
     } //check user email from backend
     // check user password from backend
     try {
       const result = await LoginUser(loginData);
-      //console.log(result.message);
+      //add success case for user name
+      if (result.message === "login successful") {
+        toast.success(result.message, { position: "bottom-right" });
+        router.replace("/userProfile");
+      } else return toast.error(result.message, { position: "bottom-right" });
     } catch (err) {
-      toast.error("Invalid Credentials");
+      toast.error("Invalid Credentials!!", { position: "bottom-right" });
       return;
     }
   };
@@ -37,7 +43,19 @@ const page = () => {
     });
   };
   return (
-    <div className="w-[60%] mx-auto m-4">
+    <div className="w-[60%] mx-auto m-4 pb-16">
+      <div className="flex items-center">
+        <Image
+          src={loginSvg}
+          className="h-56 w-[35%]"
+          alt="signInImage"
+          priority
+        />
+        <h1 className="font-bold text-3xl mx-6">
+          Welcome
+          <p className="text-sm font-thin">login here!!</p>
+        </h1>
+      </div>
       <form className="p-4 mx-[25%]" onSubmit={(e) => e.preventDefault()}>
         <label className="text-lg">Email﹡</label>
         <input

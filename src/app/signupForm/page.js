@@ -35,19 +35,22 @@ const page = () => {
     }
     try {
       const result = await SignupUser(signupData);
-      toast.success("User signedUp sucessfully", { position: "bottom-right" });
+      if (result.message === "Email-id already exists") {
+        return toast.error(result.message, { position: "bottom-right" });
+      }
+      toast.success(result.message, { position: "bottom-right" });
       setSignupData({
         username: "",
         password: "",
         email: "",
         about: "",
       });
-      console.log(result);
     } catch (err) {
       if (err.response && err.response.data && err.response.data.message) {
         console.log(err.response.data.message);
         toast.error(err.response.data.message);
       } else {
+        console.log(err);
         toast.error("Error Signing User", {
           position: "bottom-right",
         });
