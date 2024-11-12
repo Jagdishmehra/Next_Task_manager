@@ -13,7 +13,7 @@ const page = () => {
     password: "",
   });
   const handleSubmit = async () => {
-    //console.log(loginData);
+    console.log(loginData);
     const validemail = validateEmail(loginData.email);
     if (!validemail) {
       toast.error("Invalid email-Id", { position: "bottom-right" });
@@ -27,6 +27,7 @@ const page = () => {
     try {
       const result = await LoginUser(loginData);
       //add success case for user name
+      //console.log(result);
       if (result.message === "login successful") {
         toast.success(result.message, { position: "bottom-right" });
         router.replace("/userProfile");
