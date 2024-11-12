@@ -13,7 +13,7 @@ const page = () => {
     password: "",
   });
   const handleSubmit = async () => {
-    console.log(loginData);
+    //console.log(loginData);
     const validemail = validateEmail(loginData.email);
     if (!validemail) {
       toast.error("Invalid email-Id", { position: "bottom-right" });

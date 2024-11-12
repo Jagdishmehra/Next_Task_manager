@@ -22,3 +22,18 @@ export async function LoginUser(loginData) {
     .then((response) => response.data);
   return result;
 }
+// current user information
+
+export async function currentUserData() {
+  try {
+    console.log("making get request");
+    const result = await httpInstance.get("/api/currentUser");
+    console.log("not getting here");
+    console.log(result);
+    const info = result.then((response) => response.data);
+    console.log("this is get user result " + info);
+    return info;
+  } catch (err) {
+    console.log("this is get user req " + err.message);
+  }
+}
