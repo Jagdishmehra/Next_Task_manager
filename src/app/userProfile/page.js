@@ -1,20 +1,26 @@
-//import { httpInstance } from "@/helper/httpAxios";
-import { currentUserData } from "@/services/taskService";
+"use client";
 
-const page = async () => {
-  try {
-    console.log("this is user profile data");
-    const userData = await currentUserData();
-    console.log(userData);
-    console.log("not logging inside user data");
-  } catch (err) {
-    console.log(err.message);
+import { UserContext } from "@/helper/UserContext";
+import { useContext } from "react";
+
+const page = () => {
+  const data = useContext(UserContext);
+  console.log(data);
+  const { loading, userData } = data || {};
+  //console.log(loading);
+  if (loading) {
+    return <h1 className="text-white font-bold text-3xl">loading....</h1>;
   }
+  //if the data is from login and also from the context check
+  console.log("data from user profile", data);
+  const { username, photoUrl, about, email } = userData?.user || userData;
+  //console.log(username, email, about, photoUrl);
 
   return (
     <div>
-      this is user userProfile
-      <button className="bg-red-600 p-1">signOut</button>
+      <div className="mt-5 p-4">
+        <img src={photoUrl} width={80} height={80} alt="userProfile" />
+      </div>
     </div>
   );
 };

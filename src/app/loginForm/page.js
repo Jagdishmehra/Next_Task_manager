@@ -2,17 +2,21 @@
 import { validateEmail } from "@/helper/validation";
 import { LoginUser } from "@/services/taskService";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import loginSvg from "../../assets/login.svg";
 import Image from "next/image";
+import { UserContext } from "@/helper/UserContext";
 const page = () => {
+  const context = useContext(UserContext);
+  //console.log("login context", context);
   const router = useRouter();
   const [loginData, setloginData] = useState({
     email: "",
     password: "",
   });
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     //console.log(loginData);
     const validemail = validateEmail(loginData.email);
     if (!validemail) {
@@ -27,10 +31,11 @@ const page = () => {
     try {
       const result = await LoginUser(loginData);
       //add success case for user name
-      //console.log(result);
+      //console.log(result.User);
       if (result.message === "login successful") {
         toast.success(result.message, { position: "bottom-right" });
-        router.replace("/userProfile");
+        context.setUserData(result.User);
+        router.push("/");
       } else return toast.error(result.message, { position: "bottom-right" });
     } catch (err) {
       toast.error("Invalid Credentials!!", { position: "bottom-right" });
@@ -57,7 +62,7 @@ const page = () => {
           <p className="text-sm font-thin">login here!!</p>
         </h1>
       </div>
-      <form className="p-4 mx-[25%]" onSubmit={(e) => e.preventDefault()}>
+      <form className="p-4 mx-[25%]" onSubmit={handleSubmit}>
         <label className="text-lg">Email﹡</label>
         <input
           type="text"
@@ -86,7 +91,7 @@ const page = () => {
         ></input>
         <div className="flex justify-center mt-4">
           <button
-            onClick={handleSubmit}
+            type="submit"
             className="bg-blue-600 px-2 mr-1 py-1 rounded-lg hover:bg-blue-800"
           >
             Login

@@ -31,6 +31,8 @@ export async function POST(request) {
     });
     return NextResponse.json({
       message: "login successful",
+      token,
+      User,
     });
   } else {
     return NextResponse.json(

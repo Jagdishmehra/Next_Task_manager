@@ -16,7 +16,7 @@ export function middleware(request) {
   try {
     if (UnAcessLoginUserRoutes) {
       if (cookie) {
-        return NextResponse.redirect(new URL("userProfile", url));
+        return NextResponse.redirect(new URL("/userProfile", url));
       }
     } else {
       if (!cookie) {
