@@ -1,7 +1,13 @@
-import React from "react";
+import { NextResponse } from "next/server";
 
-function route() {
-  return <div>this is logout button</div>;
+export function POST() {
+  const response = NextResponse.json({
+    message: "Logout Successful!!",
+    success: true,
+  });
+  response.cookies.set("loginToken", "", {
+    expiresIn: new Date(0),
+    path: "/",
+  });
+  return response;
 }
-
-export default route;

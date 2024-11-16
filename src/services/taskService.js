@@ -14,6 +14,12 @@ export async function SignupUser(signUpdata) {
     .then((response) => response.data);
   return result;
 }
+export async function logout() {
+  const result = await httpInstance
+    .post("/api/logOut")
+    .then((response) => response.data);
+  return result;
+}
 //logging in existing user
 export async function LoginUser(loginData) {
   try {

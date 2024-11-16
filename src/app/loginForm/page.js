@@ -35,7 +35,7 @@ const page = () => {
       if (result.message === "login successful") {
         toast.success(result.message, { position: "bottom-right" });
         context.setUserData(result.User);
-        router.push("/");
+        router.replace("/");
       } else return toast.error(result.message, { position: "bottom-right" });
     } catch (err) {
       toast.error("Invalid Credentials!!", { position: "bottom-right" });

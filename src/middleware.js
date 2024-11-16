@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 
 export function middleware(request) {
@@ -16,7 +17,8 @@ export function middleware(request) {
   try {
     if (UnAcessLoginUserRoutes) {
       if (cookie) {
-        return NextResponse.redirect(new URL("/userProfile", url));
+        const decoded = jwt.verify(cookie, process.env.JWT_SECRET);
+        if (decoded) return NextResponse.redirect(new URL("/userProfile", url));
       }
     } else {
       if (!cookie) {
